@@ -1,0 +1,11 @@
+<p>towns-list works!</p>
+
+TOWNS:
+
+<div>
+  <button type = "button" (click) = "fetchTowns()">REFRESH</button>
+</div>
+
+<div *ngFor = "let town of towns$ | async">
+  {{town.townId}}. {{town.name}}
+</div>

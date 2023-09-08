@@ -1,0 +1,48 @@
+<p>category-details works!</p>
+
+<div>
+    <p>current category is: <strong>{{currentCategory.name}}</strong></p>
+    <p>{{currentCategory.comment}}</p>
+    <p>{{currentCategory.availableOnline ? "available online" : "unavailable online"}}</p>
+</div>
+
+<button (click) = "deleteCategory()">Delete</button>
+
+<div *ngIf = "currentCategory.categoryId">
+    UPDATE CATEGORY
+    <form>
+        <div>
+            <label for = "name">Name: </label>
+            <input 
+                type = "text"
+                id = "name"
+                [(ngModel)] = "currentCategory.name"
+                name = "name">
+        </div>
+        <div>
+            <label for = "comment">Description: </label>
+            <input 
+                type = "text"
+                id = "comment"
+                [(ngModel)] = "currentCategory.comment"
+                name = "comment">
+        </div>
+        <div>
+            <label for = "availableOnline">is available online</label>
+            <input 
+                type = "checkbox"
+                id = "availableOnline"
+                [(ngModel)] = "currentCategory.availableOnline"
+                name = "availableOnline">
+        </div>
+    </form>
+
+<button 
+    type = "submit"
+    (click) = "updateCategory()">
+    Update
+</button>
+
+</div>
+
+{{currentCategory | json}}

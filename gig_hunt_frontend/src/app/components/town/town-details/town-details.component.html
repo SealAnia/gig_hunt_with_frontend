@@ -1,0 +1,40 @@
+<p>town-details works!</p>
+
+{{currentTown.townId}}. {{currentTown.name}} {{currentTown | json}}
+
+<div *ngIf = "currentTown.region != null"> Region: {{currentTown.region.name}}</div>
+
+<div *ngIf="currentTown.townId">
+  <h4>Town</h4>
+  <form>
+    <div>
+      <label for="name">name: </label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="currentTown.name"
+        name="name"
+      />
+    </div>
+
+    <div>
+      <label for = "region">region: </label>
+      <input
+      type = "number"
+      id = "region"
+      [(ngModel)]="currentTown.region.regionId"
+      name = "region"/>
+    </div>
+    
+  </form>
+
+  <button (click)="deleteTown()">
+    Delete
+  </button>
+
+  <button
+    type="submit"
+    (click)="updateTown()">
+    Update
+  </button>
+</div>

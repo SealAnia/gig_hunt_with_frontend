@@ -1,0 +1,11 @@
+<p>regions-list works!</p>
+
+REGIONS:
+
+<div>
+  <button type = "button" (click) = "fetchRegions()">REFRESH</button>
+</div>
+
+<div *ngFor = "let region of regions$ | async">
+  {{region.regionId}}. {{region.name}} <a routerLink="/regions/{{region.regionId}}" routerLinkActive="active">View Details</a>
+</div>

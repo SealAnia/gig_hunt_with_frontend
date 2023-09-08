@@ -1,0 +1,47 @@
+.input-form {
+  font-family: Dubai Medium;
+  font-size: 18px;
+  color: midnightblue;
+  font-kerning: inherit;
+}
+
+.frame {
+  border-radius: 1.5px;
+  border-style: solid;
+  border-radius: 15px;
+  border-color: dodgerblue;
+  background: azure;
+  backface-visibility: visible;
+  padding-top: 20px;
+  padding-right: initial;
+  padding-bottom: 20px;
+  padding-left: initial;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  margin-right: 950px;
+}
+
+.title {
+  font-family: Verdana;
+  font-style: oblique;
+  font-size: 36px;
+  color: mediumorchid;
+}
+
+.button-class {
+  background-color: sandybrown;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border-style: hidden;
+}
+
+.button-class:hover {
+  background-color: red;
+  color: white;
+}
+
+.page {
+  margin-top: 80px;
+  margin-left: 250px;
+}

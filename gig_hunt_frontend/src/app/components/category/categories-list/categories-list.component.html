@@ -1,0 +1,8 @@
+<p>categories-list works!</p>
+
+<div>CATEGORIES:</div>
+
+<div *ngFor = "let category of categories$ | async">
+    {{category.categoryId}}. {{category.name}} 
+    <a routerLink = "/categories/{{category.categoryId}}" routerLinkActive = "active">View details</a>
+</div>

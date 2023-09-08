@@ -1,0 +1,35 @@
+<p>add-category works!</p>
+
+<div>ADD NEW CATEGORY</div>
+
+<div>
+    <div>
+        <label for = "name">Name: </label>
+        <input 
+            type = "text"
+            id = "name"
+            [(ngModel)] = "category.name"
+            name = "name"/>
+    </div>
+
+    <div>
+        <label for = "comment">Comment: </label>
+        <input 
+            type = "text"
+            id = "comment"
+            [(ngModel)] = "category.comment"
+            name = "comment"/>
+    </div>
+
+    <div>
+        <label for = "availableOnline">is available online</label>
+        <input type = "checkbox"
+            id = "availableOnline"
+            [(ngModel)] = "category.availableOnline"
+            name = "availableOnline"/>
+    </div>
+
+    <button (click) = "saveCategory()">Save</button>
+
+    {{category | json}}
+</div>
