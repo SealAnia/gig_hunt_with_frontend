@@ -8,7 +8,6 @@ public interface CardService extends DefaultService<Card> {
 
     String checkTimeToCardExpiration(Long cardId);
 
-    //NEW
     void depositMoney(Long cardId, Double amount);
     void charge(Long cardId, Double amount);
 

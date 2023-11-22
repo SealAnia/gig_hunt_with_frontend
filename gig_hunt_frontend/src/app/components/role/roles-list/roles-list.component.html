@@ -1,0 +1,11 @@
+<p>roles-list works!</p>
+
+<div><p>
+    <button type = "button" (click) = "fetchRoles()">REFRESH</button></p>
+</div>
+
+<strong>ROLES:</strong>
+
+<div *ngFor = "let role of roles$ | async">
+    {{role.roleId}}. {{role.name?.substring(5)}}
+</div>

@@ -6,6 +6,7 @@ import com.example.gig_hunt.service.impl.GoodsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +35,9 @@ public class GoodsRestController {
         return goodsService.readById(goodsId);
     }
 
-    //FINDS ALL ITEMS FROM A CERTAIN MASTER
+    //FINDS ALL ITEMS FROM A CERTAIN MASTER (FOR A CUSTOMER)
     @GetMapping(value = "/from_master")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public List<Goods> findItemsFromMaster(@RequestParam(value = "master_id") Long userId) {
         return goodsService.findItemsFromMaster(userId);
     }

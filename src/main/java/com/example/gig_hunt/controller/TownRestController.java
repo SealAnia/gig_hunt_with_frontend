@@ -5,6 +5,7 @@ import com.example.gig_hunt.model.entity.Town;
 import com.example.gig_hunt.service.impl.RegionServiceImpl;
 import com.example.gig_hunt.service.impl.TownServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,31 @@ public class TownRestController {
     @GetMapping(value = "/{townId}")
     public ResponseEntity<Town> getTownById(@PathVariable Long townId) {
         return ResponseEntity.ok(townService.readById(townId));
+    }
+
+    @GetMapping(value = "/sorted_by_name_asc")
+    public ResponseEntity<List<Town>> sortTowmsByNameAsc() {
+        return ResponseEntity.ok(townService.sortByNameAsc(Sort.by(Sort.Direction.ASC, "name")));
+    }
+
+    @GetMapping(value = "/sorted_by_name_desc")
+    public ResponseEntity<List<Town>> sortTownsByNameDesc() {
+        return ResponseEntity.ok(townService.sortByNameDesc(Sort.by(Sort.Direction.DESC, "name")));
+    }
+
+    @GetMapping(value = "/sorted_by_region_asc")
+    public ResponseEntity<List<Town>> sortTownsByRegionAsc() {
+        return ResponseEntity.ok(townService.sortTownsByRegionNameASC());
+    }
+
+    @GetMapping(value = "/sorted_by_region_desc")
+    public ResponseEntity<List<Town>> sortTownsByRegionDesc() {
+        return ResponseEntity.ok(townService.sortTownsByRegionNameDESC());
+    }
+
+    @GetMapping(value = "/")
+    public ResponseEntity<List<Town>> getTownsOfARegion(@RequestParam String region) {
+        return ResponseEntity.ok(townService.getTownsOfARegion(region));
     }
 
     @PostMapping(value = "/")

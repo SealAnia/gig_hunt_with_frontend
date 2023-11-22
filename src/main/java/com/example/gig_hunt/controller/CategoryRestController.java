@@ -4,6 +4,7 @@ import com.example.gig_hunt.model.entity.Category;
 import com.example.gig_hunt.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class CategoryRestController {
     }
 
     @PostMapping(value = "/")
+    //@PreAuthorize("hasRole('ADMIN')")
     public void createCategory(@RequestBody Category category) {
         categoryService.createOrUpdate(category);
     }

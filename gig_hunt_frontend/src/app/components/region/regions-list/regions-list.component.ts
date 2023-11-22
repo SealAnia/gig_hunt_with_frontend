@@ -11,14 +11,14 @@ import {Observable} from "rxjs";
 export class RegionsListComponent implements OnInit {
 
   public regions$: Observable<Region[]> = new Observable<Region[]>();
-
+  
   constructor(private regionService: RegionService) {}
 
   ngOnInit() {
     this.fetchRegions();
   }
 
-  fetchRegions() {
+  fetchRegions(): void {
     this.regions$ = this.regionService.getAll();
   }
 

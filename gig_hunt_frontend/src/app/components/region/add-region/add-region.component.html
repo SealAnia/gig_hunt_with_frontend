@@ -16,30 +16,8 @@
       />
     </div>
 
-    <!--<div *ngFor="let town of region.towns; let i = index" class="input-form">
-      <label for="townName{{i}}">Town Name:</label>
-      <input
-        type="text"
-        id="townName{{i}}"
-        name="townName{{i}}"
-        [(ngModel)]="town.name"
-      />
-    </div>
-    <button type="button" (click)="addTown()">Add Town</button><br><br>-->
-
     <button (click) = "saveRegion()">SUBMIT</button>
     region: {{region | json}}
 </div>
 
 </div>
-
-<!--<div>
-  <h2>Add New Region</h2>
-  <form [formGroup]="regionForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="name">Region Name</label>
-      <input type="text" id="name" formControlName="name" />
-    </div>
-    <button type="submit">Add Region</button>
-  </form>
-</div>-->

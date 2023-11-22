@@ -4,10 +4,12 @@ import com.example.gig_hunt.model.entity.*;
 import com.example.gig_hunt.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/users")
 public class UserRestController {
@@ -36,27 +38,29 @@ public class UserRestController {
     }
 
     //RETURNS ALL MASTERS IN A CERTAIN ONLINE CATEGORY
-    @GetMapping(value = "masters/{categoryId}")
+    @GetMapping(value = "/masters/{categoryId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public List<Master> findMastersInCategory(@PathVariable Long categoryId) {
         return userService.findMastersInCategory(categoryId);
     }
 
     //RETURNS ALL MASTER FROM A CERTAIN TOWN IN AN OFFLINE CATEGORY
     @GetMapping(value = "/masters/{categoryId}/{townId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public List<Master> findMastersInCategoryAndFromTown(@PathVariable Long categoryId, @PathVariable Long townId) {
         return userService.findMastersInCategoryAndFromTown(categoryId, townId);
     }
 
     //RETURNS TOTAL AMOUNT THAT A CERTAIN MASTER HAS EARNED
-    @GetMapping(value = "/masters/amount")
-    public Double countAmountForMaster(@RequestParam(value = "master_id") Long userId) {
+    @GetMapping(value = "/masters/amount/{userId}")
+    public Double countAmountForMaster(@PathVariable Long userId) {
         System.out.println(userService.countEarnedAmount(userId));
         return userService.countEarnedAmount(userId);
     }
 
     //RETURNS THE AMOUNT THAT A MASTER HAS EARNED IN A CERTAIN MONTH
-    @GetMapping(value = "/masters/amount_for_month")
-    public String countAmontEarnedInMonth(@RequestParam(value = "master_id") Long userId,
+    @GetMapping(value = "/masters/amount_for_month/{userId}")
+    public String countAmontEarnedInMonth(@PathVariable Long userId,
                                           @RequestParam(value = "month") String month) {
         return userService.countEarnedAmountForMonth(userId, month);
     }

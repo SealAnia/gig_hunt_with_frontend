@@ -33,9 +33,8 @@ public class CardRestController {
         return cardService.readById(cardId);
     }
 
-    //RETURNS TIME LEFT TO CARD EXPIRATION
-    @GetMapping(value = "/")
-    public String checkTimeToCardExpiration(@RequestParam ("card_id") Long cardId) {
+    @GetMapping(value = "/{cardId}/")
+    public String checkTimeToCardExpiration(@PathVariable Long cardId) {
         return cardService.checkTimeToCardExpiration(cardId).toString();
     }
 

@@ -4,6 +4,7 @@ import com.example.gig_hunt.model.entity.OrderDetails;
 import com.example.gig_hunt.service.impl.OrderDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +31,8 @@ public class OrderDetailsRestController {
     }
 
     //RETURNS ALL ORDERS FROM A CERTAIN MASTER
-    @GetMapping(value = "/of_master")
-    public List<OrderDetails> getOrdersOfMaster(@RequestParam(value = "user_id") Long userId) {
+    @GetMapping(value = "/my_orders/{userId}/")
+    public List<OrderDetails> getOrdersOfMaster(@PathVariable Long userId) {
         return orderDetailsService.getOrdersOfMaster(userId);
     }
 

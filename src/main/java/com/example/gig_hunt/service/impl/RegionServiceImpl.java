@@ -4,6 +4,7 @@ import com.example.gig_hunt.model.entity.Region;
 import com.example.gig_hunt.model.repository.RegionRepository;
 import com.example.gig_hunt.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,18 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public Region readById(Long id) {
         return regionRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Region> sortByNameAsc(Sort sort) {
+        List<Region> regions = regionRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        return regions;
+    }
+
+    @Override
+    public List<Region> sortByNameDesc(Sort sort) {
+        List<Region> regions = regionRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
+        return regions;
     }
 
     @Override

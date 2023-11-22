@@ -14,7 +14,6 @@ export class CategoryDetailsComponent implements OnInit {
     categoryId: 0,
     name: '',
     comment: '',
-    //???
     availableOnline: false
   };
 

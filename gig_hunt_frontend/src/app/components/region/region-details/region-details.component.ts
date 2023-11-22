@@ -34,18 +34,6 @@ export class RegionDetailsComponent implements OnInit {
       });
   }
 
-  //NEW
-  //getTowns(regionId: any) {
-    //this.regionService.getTownsOfRegion(regionId)
-    //.subscribe({
-      //next: (result) => {
-        //this.currentRegion.towns = result;
-        //console.log(result);
-      //},
-      //error: (e) => console.log(e)
-    //});
-  //}
-
   updateRegion(): void {
     this.regionService.updateRegion(this.currentRegion.regionId, this.currentRegion)
       .subscribe({

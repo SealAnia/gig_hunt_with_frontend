@@ -1,5 +1,6 @@
 package com.example.gig_hunt.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,6 +36,7 @@ public class Goods {
     private String description;
 
     @ManyToMany(mappedBy = "basket", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     private List<Customer> customers;
 
     @Override

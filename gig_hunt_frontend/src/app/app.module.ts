@@ -14,6 +14,12 @@ import { TownsListComponent } from './components/town/towns-list/towns-list.comp
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
 import { CategoryDetailsComponent } from './components/category/category-details/category-details.component';
 import { CategoriesListComponent } from './components/category/categories-list/categories-list.component';
+import { AddUserComponent } from './components/user/add-user/add-user.component';
+import { UsersListComponent } from './components/user/users-list/users-list.component';
+import { UserDetailsComponent } from './components/user/user-details/user-details.component';
+import { AddRoleComponent } from './components/role/add-role/add-role.component';
+import { RoleDetailsComponent } from './components/role/role-details/role-details.component';
+import { RolesListComponent } from './components/role/roles-list/roles-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,13 @@ import { CategoriesListComponent } from './components/category/categories-list/c
     TownsListComponent,
     AddCategoryComponent,
     CategoryDetailsComponent,
-    CategoriesListComponent
+    CategoriesListComponent,
+    AddUserComponent,
+    UsersListComponent,
+    UserDetailsComponent,
+    AddRoleComponent,
+    RoleDetailsComponent,
+    RolesListComponent
   ],
   imports: [
     BrowserModule,

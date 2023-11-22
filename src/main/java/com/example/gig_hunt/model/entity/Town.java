@@ -2,12 +2,10 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
+import jakarta.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "town")

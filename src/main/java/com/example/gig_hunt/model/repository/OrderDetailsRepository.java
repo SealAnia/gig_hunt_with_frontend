@@ -15,6 +15,6 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long
             "o.order_status FROM order_details o " +
             "INNER JOIN goods g ON o.goods_id = g.goods_id " +
             "WHERE g.master_id = :user_id", nativeQuery = true)
-    List<OrderDetails> getOrdersOfMaster(@Param("user_id") Long userId);
+    List<OrderDetails> getOrdersOfMaster(Long user_id);
 
 }

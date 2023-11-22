@@ -6,12 +6,15 @@ import com.example.gig_hunt.model.repository.RoleRepository;
 import com.example.gig_hunt.model.repository.UserRepository;
 import com.example.gig_hunt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -87,12 +90,25 @@ public class UserServiceImpl implements UserService {
     public String countEarnedAmountForMonth(Long masterId, String month) {
         Master master = (Master) userRepository.findById(masterId).get();
         Company company = master.getCompany();
-        if(userRepository.countEarnedAmountForMonth(masterId, month) > Master.getAMOUNT_FREE_FROM_FEE() && company == null) {
+
+        if(userRepository.countEarnedAmountForMonth(masterId, month) == null) {
+            return "0";
+        }
+        else if(userRepository.countEarnedAmountForMonth(masterId, month) > Master.getAMOUNT_FREE_FROM_FEE() && company == null) {
             return String.valueOf(userRepository.countEarnedAmountForMonth(masterId, month)) +
                     " You have earned more than " + Master.getAMOUNT_FREE_FROM_FEE()
                     + ". Remember to the register the company.";
         }
         return String.valueOf(userRepository.countEarnedAmountForMonth(masterId, month));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
+        var user = userRepository.findByNickname(nickname);
+        if(user == null) {
+            throw new UsernameNotFoundException(nickname);
+        }
+        return user;
     }
 
 }

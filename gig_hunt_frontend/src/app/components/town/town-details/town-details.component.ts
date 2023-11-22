@@ -14,20 +14,16 @@ export class TownDetailsComponent implements OnInit {
     townId: 0,
     name: '',
     region: {
-      regionId: 0
+      //regionId: 0
     }
   };
 
   constructor(private townService: TownService,
-    //NEW
-    //private regionService: RegionService,
               private route: ActivatedRoute,
               private router: Router) {}
 
   ngOnInit(): void {
     this.getTownById(this.route.snapshot.params["townId"]);
-    //NEW
-    //this.regionService.getById(this.currentTown.region.regionId);
   }
 
   getTownById(townId: number) {
@@ -37,16 +33,11 @@ export class TownDetailsComponent implements OnInit {
           this.currentTown = result;
           console.log(result);
         },
-        error: (e) => console.log(e)
+        error: (e) => console.error(e)
       });
   }
 
   updateTown(): void {
-    
-    //if (!this.currentTown.region) {
-      //this.currentTown.region = this.regionService.getById(this.currentTown.region.regionId);
-    //}
-
     this.townService.updateTown(this.currentTown.townId, this.currentTown)
       .subscribe({
         next: (result) => {

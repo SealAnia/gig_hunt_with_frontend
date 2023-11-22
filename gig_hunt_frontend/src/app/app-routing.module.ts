@@ -9,6 +9,12 @@ import {TownDetailsComponent} from "./components/town/town-details/town-details.
 import { CategoriesListComponent } from './components/category/categories-list/categories-list.component';
 import { CategoryDetailsComponent } from './components/category/category-details/category-details.component';
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { UsersListComponent } from './components/user/users-list/users-list.component';
+import { UserDetailsComponent } from './components/user/user-details/user-details.component';
+import { AddUserComponent } from './components/user/add-user/add-user.component';
+import { RolesListComponent } from './components/role/roles-list/roles-list.component';
+import { RoleDetailsComponent } from './components/role/role-details/role-details.component';
+import { AddRoleComponent } from './components/role/add-role/add-role.component';
 
 const routes: Routes = [
   {path: 'regions', component: RegionsListComponent},
@@ -19,7 +25,13 @@ const routes: Routes = [
   {path: 'towns/:townId', component: TownDetailsComponent},
   {path: 'categories', component: CategoriesListComponent},
   {path: 'categories/:categoryId', component: CategoryDetailsComponent},
-  {path: 'add_category', component: AddCategoryComponent}
+  {path: 'add_category', component: AddCategoryComponent},
+  {path: 'roles', component: RolesListComponent},
+  {path: 'roles/:roleId', component: RoleDetailsComponent}, 
+  {path: 'add_role', component: AddRoleComponent},
+  {path: 'users', component: UsersListComponent},
+  {path: 'users/:userId', component: UserDetailsComponent}, 
+  {path: 'add_user', component: AddUserComponent}
 ];
 
 @NgModule({

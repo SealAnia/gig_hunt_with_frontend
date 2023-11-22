@@ -39,38 +39,4 @@ export class AddRegionComponent implements OnInit {
       towns: [],
     };
   }
-
-  //addTown() {
-    //this.region.towns.push(new Town());
-  //}
-
 }
-
-//export class AddRegionComponent implements OnInit {
-  //regionForm: FormGroup = new FormGroup({});
-
-  //constructor(private formBuilder: FormBuilder, private regionService: RegionService) {}
-
-  //ngOnInit(): void {
-    //this.initForm();
-  //}
-
-  //initForm(): void {
-    //this.regionForm = this.formBuilder.group({
-      //name: ['', Validators.required]
-    //});
-  //}
-
-  //onSubmit(): void {
-    //if (this.regionForm.invalid) {
-      //return;
-    //}
-
-    //const regionData = this.regionForm.value;
-    //this.regionService.createRegion(regionData).subscribe({
-      //next : (result) => {
-        //console.log(result);
-      //}
-    //});
-  //}
-//}

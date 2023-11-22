@@ -1,0 +1,23 @@
+<p>role-details works!</p>
+
+{{currentRole.roleId}}. {{currentRole.name}} {{currentRole | json}}
+
+<div *ngIf = "currentRole.roleId">
+    <h3><strong>Current Role</strong></h3>
+    <form>
+        <div>
+            <label for="name">name: </label>
+            <input
+              type="text"
+              id="name"
+              [(ngModel)]="currentRole.name"
+              name="name"
+            />
+          </div>
+    </form>
+
+    <button (click) = "deleteRole()">Delete</button>
+
+    <button type = "submit" (click) = updateRole()>Update</button>
+
+</div>

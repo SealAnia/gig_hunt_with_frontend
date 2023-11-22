@@ -7,8 +7,8 @@ import java.util.List;
 public interface OrderDetailsService extends DefaultService<OrderDetails> {
 
     List<OrderDetails> getOrdersOfMaster(Long userId);
-    public OrderDetails acceptOrder(OrderDetails orderDetails);
-    public OrderDetails declineOrder(OrderDetails orderDetails);
-    public OrderDetails setOrderCompleted(OrderDetails orderDetails);
+    OrderDetails acceptOrder(OrderDetails orderDetails);
+    OrderDetails declineOrder(OrderDetails orderDetails);
+    OrderDetails setOrderCompleted(OrderDetails orderDetails);
 
 }

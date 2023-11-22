@@ -1,0 +1,20 @@
+<p>add-role works!</p>
+
+<div><strong>ADD ROLE</strong></div>
+
+<div>
+    <div>
+        <label for = "name">name: </label>
+        <input 
+            type = "text"
+            required
+            id = "name"
+            [(ngModel)] = "role.name"
+            name = "name"
+        />
+    </div>
+
+    <button (click) = "saveRole()">SUBMIT</button>
+
+    role: {{role | json}}
+</div>

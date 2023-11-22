@@ -3,6 +3,7 @@ package com.example.gig_hunt.controller;
 import com.example.gig_hunt.model.entity.Region;
 import com.example.gig_hunt.service.impl.RegionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,16 @@ public class RegionRestController {
     @GetMapping(value = "/{regionId}")
     public ResponseEntity<Region> getRegionById(@PathVariable Long regionId) {
         return ResponseEntity.ok(regionService.readById(regionId));
+    }
+
+    @GetMapping(value = "/sorted_by_name_asc")
+    public ResponseEntity<List<Region>> sortRegionsByNameAsc() {
+        return ResponseEntity.ok(regionService.sortByNameAsc(Sort.by(Sort.Direction.ASC, "name")));
+    }
+
+    @GetMapping(value = "/sorted_by_name_desc")
+    public ResponseEntity<List<Region>> sortRegionsByNameDesc() {
+        return ResponseEntity.ok(regionService.sortByNameDesc(Sort.by(Sort.Direction.DESC, "name")));
     }
 
     @PostMapping(value = "/")

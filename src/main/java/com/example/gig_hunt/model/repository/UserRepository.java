@@ -15,7 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u.user_id, u.nickname, u.role_id, u.town_id, u.category_id," +
             "u.is_busy, u.maximum, u.active_orders, u.address, u.e_mail," +
             "u.postal_code, u.phone_number, u.watsapp_number," +
-            "u.first_name, u.second_name FROM user u "
+            "u.first_name, u.second_name, u.account_not_expired, " +
+            "u.account_not_locked, u.credentials_not_expired, u.enabled, u.password FROM user u "
             + "INNER JOIN category c ON u.category_id = c.category_id WHERE "
             + "u.category_id = :category_id AND c.available_online = true AND u.is_busy = false", nativeQuery = true)
     List<Master> findMastersInCategory(@Param("category_id") Long categoryId);
@@ -23,7 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u.user_id, u.nickname, u.role_id, u.town_id, u.category_id," +
             "u.is_busy, u.maximum, u.active_orders, u.address, u.e_mail,"  +
             "u.postal_code, u.phone_number, u.watsapp_number," +
-            "u.first_name, u.second_name FROM user u "
+            "u.first_name, u.second_name, u.account_not_expired, u.account_not_locked, " +
+            "u.credentials_not_expired, u.enabled, u.password FROM user u "
             + "INNER JOIN category c ON u.category_id = c.category_id "
             + "INNER JOIN town t ON u.town_id = t.town_id WHERE u.category_id = :category_id AND "
             + "u.town_id = :town_id AND c.available_online = false AND u.is_busy = false", nativeQuery = true)
@@ -34,12 +36,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "INNER JOIN order_details o ON g.goods_id = o.goods_id " +
             "WHERE o.order_status = 'COMPLETED' AND g.master_id = :master_id " +
             "GROUP BY u.user_id;", nativeQuery = true)
-    Double countEarnedAmount(@Param("master_id") Long masterId);
+    Double countEarnedAmount(Long master_id);
 
     @Query(value = "SELECT SUM(price * quantity) FROM user u " +
             "INNER JOIN goods g ON u.user_id = g.master_id INNER JOIN order_details o ON " +
             "g.goods_id = o.goods_id WHERE o.order_status = 'COMPLETED' AND g.master_id = " +
             ":master_id AND DATE_FORMAT(o.date, '%Y-%m') = :month GROUP BY MONTH(date)", nativeQuery = true)
-    Double countEarnedAmountForMonth(@Param("master_id") Long masterId, @Param("month") String month);
+    Double countEarnedAmountForMonth(Long master_id, @Param("month") String month);
+
+    User findByNickname(String nickname);
 
 }
