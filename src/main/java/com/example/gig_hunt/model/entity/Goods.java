@@ -46,6 +46,7 @@ public class Goods {
         result = prime * result + Long.hashCode(goodsId);
         result = prime * result + Double.hashCode(price);
         result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((master == null) ? 0 : master.hashCode());
         return result;
     }
 
@@ -59,7 +60,8 @@ public class Goods {
         Goods goodsTwo = (Goods) goods;
         return goodsId == goodsTwo.goodsId
                 && (price == goodsTwo.price || (price != null && price == goodsTwo.price))
-                && (description == goodsTwo.description || (description != null && description.equals(goodsTwo.description)));
+                && (description == goodsTwo.description || (description != null && description.equals(goodsTwo.description)))
+                && (master == goodsTwo.master || (master != null && master.equals(goodsTwo.master)));
     }
 
 }

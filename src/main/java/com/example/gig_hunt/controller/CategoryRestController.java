@@ -31,6 +31,16 @@ public class CategoryRestController {
         return categoryService.readById(categoryId);
     }
 
+    @GetMapping(value = "/online")
+    public List<Category> getOnlineCategories() {
+        return categoryService.getOnlineCategories();
+    }
+
+    @GetMapping(value = "/offline")
+    public List<Category> getOfflineCategories() {
+        return categoryService.getOfflineCategories();
+    }
+
     @PostMapping(value = "/")
     //@PreAuthorize("hasRole('ADMIN')")
     public void createCategory(@RequestBody Category category) {

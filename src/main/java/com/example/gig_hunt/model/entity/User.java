@@ -33,7 +33,6 @@ public abstract class User implements UserDetails {
     @ToString.Include
     protected String nickname;
 
-    //NEW
     @Column(name = "password", columnDefinition = "varchar(225)", nullable = false, unique = false)
     @ToString.Exclude
     @JsonIgnore
@@ -76,7 +75,6 @@ public abstract class User implements UserDetails {
     @JsonIgnore
     private List<Goods> basket;
 
-    //NEW
     @Column(name = "account_not_expired", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
     private boolean accountNonExpired;
@@ -95,7 +93,6 @@ public abstract class User implements UserDetails {
         goods.getCustomers().add((Customer) this);
     }
 
-    //NEW
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         var authorities = new ArrayList<GrantedAuthority>();
@@ -128,6 +125,43 @@ public abstract class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Long.hashCode(userId);
+        result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((role == null) ? 0: role.hashCode());
+        result = prime * result + ((personalData == null) ? 0 : personalData.hashCode());
+        result = prime * result + ((card == null) ? 0 : card.hashCode());
+        result = prime * result + Boolean.hashCode(accountNonExpired);
+        result = prime * result + Boolean.hashCode(accountNonLocked);
+        result = prime * result + Boolean.hashCode(credentialsNonExpired);
+        result = prime * result + Boolean.hashCode(enabled);
+        return result;
+    }
+
+    public boolean equals(User user) {
+        if(user == this) {
+            return true;
+        }
+        if(user == null || user.getClass() != this.getClass()) {
+            return false;
+        }
+        User userTwo = (User) this;
+        return userId == userTwo.userId &&
+                (nickname == userTwo.nickname || (nickname != null && nickname.equals(userTwo.nickname))) &&
+                (password == userTwo.password || (password != null && password.equals(userTwo.password))) &&
+                (role == userTwo.role || (role != null && role.equals(userTwo.role))) &&
+                (personalData == null || (personalData != null && personalData.equals(userTwo.personalData))) &&
+                (card == null || (card != null && card.equals(userTwo.card))) &&
+                accountNonExpired == userTwo.accountNonExpired &&
+                accountNonLocked == userTwo.accountNonLocked &&
+                credentialsNonExpired == userTwo.credentialsNonExpired &&
+                enabled == userTwo.enabled;
     }
 
 }

@@ -36,6 +36,16 @@ public class OrderDetailsRestController {
         return orderDetailsService.getOrdersOfMaster(userId);
     }
 
+    @GetMapping(value = "/my_orders/{userId}/by_date")
+    public List<OrderDetails> getOrdersOfMasterOrderByDate(@PathVariable Long userId) {
+        return orderDetailsService.getOrdersOfMasterOrderByDate(userId);
+    }
+
+    @GetMapping(value = "/my_orders/{userId}/by_status")
+    public List<OrderDetails> getOrdersOfMasterOrderByStatus(@PathVariable Long userId) {
+        return orderDetailsService.getOrdersOfMasterOrderByStatus(userId);
+    }
+
     @PostMapping(value = "/")
     public void addOrderDetails(@RequestBody OrderDetails order) {
         orderDetailsService.createOrUpdate(order);

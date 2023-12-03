@@ -58,6 +58,8 @@ public class OrderDetails {
         int result = 1;
         result = prime * result + Long.hashCode(orderId);
         result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+        result = prime * result + ((goods == null) ? 0 : goods.hashCode());
         result = prime * result + quantity;
         result = prime * result + ((cost == null) ? 0 : Double.hashCode(cost));
         result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -74,6 +76,8 @@ public class OrderDetails {
         OrderDetails orderTwo = (OrderDetails) order;
         return orderId == orderTwo.orderId
                 && (date == orderTwo.date || (date != null && date.equals(orderTwo.date)))
+                && (customer == orderTwo.customer || customer != null && customer.equals(orderTwo.customer))
+                && (goods == orderTwo.goods || goods != null && goods.equals(orderTwo.goods))
                 && quantity == orderTwo.quantity
                 && (cost == orderTwo.cost || (cost != null && cost.equals(orderTwo.cost)))
                 && (status == orderTwo.status || (status != null && status.equals(orderTwo.status)));

@@ -42,6 +42,7 @@ public class Town {
         int result = 1;
         result = prime * result + Long.hashCode(townId);
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((region == null) ? 0 : region.hashCode());
         return 1;
     }
 
@@ -54,7 +55,8 @@ public class Town {
         }
         Town townTwo = (Town) town;
         return townId == townTwo.townId
-                && (name == townTwo.name || (name != null && name.equals(townTwo.name)));
+                && (name == townTwo.name || (name != null && name.equals(townTwo.name)))
+                && (region == townTwo.region || (region != null && region.equals(townTwo.region)));
     }
 
 }

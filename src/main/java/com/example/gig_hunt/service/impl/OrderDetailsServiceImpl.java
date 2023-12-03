@@ -53,6 +53,16 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         return orderDetailsRepository.getOrdersOfMaster(userId);
     }
 
+    @Override
+    public List<OrderDetails> getOrdersOfMasterOrderByDate(Long userId) {
+        return orderDetailsRepository.getOrdersOfMasterOrderByDate(userId);
+    }
+
+    @Override
+    public List<OrderDetails> getOrdersOfMasterOrderByStatus(Long userId) {
+        return orderDetailsRepository.getOrdersOfMasterOrderByStatus(userId);
+    }
+
     //MASTER CHOOSES TO ACCEPT OR DECLINE AN ORDER
     @Override
     public OrderDetails acceptOrder(OrderDetails orderDetails) {

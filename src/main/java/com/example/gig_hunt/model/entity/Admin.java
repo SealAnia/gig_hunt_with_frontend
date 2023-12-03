@@ -26,4 +26,13 @@ public class Admin extends User {
     @Getter
     private static String ADMIN_SECOND_NAME = "admin";
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    public boolean equals(Admin admin) {
+        return super.equals(admin);
+    }
+
 }

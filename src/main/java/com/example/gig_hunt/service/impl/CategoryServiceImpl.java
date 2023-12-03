@@ -28,6 +28,17 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id).get();
     }
 
+
+    @Override
+    public List<Category> getOnlineCategories() {
+        return categoryRepository.getOnlineCategories();
+    }
+
+    @Override
+    public List<Category> getOfflineCategories() {
+        return categoryRepository.getOfflineCategories();
+    }
+
     @Override
     public Category createOrUpdate(Category category) {
         return categoryRepository.saveAndFlush(category);
@@ -37,4 +48,5 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
+
 }

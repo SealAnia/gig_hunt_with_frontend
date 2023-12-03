@@ -1,6 +1,5 @@
 package com.example.gig_hunt.config;
 
-import com.example.gig_hunt.model.entity.Customer;
 import com.example.gig_hunt.model.entity.Master;
 import com.example.gig_hunt.model.entity.OrderDetails;
 import com.example.gig_hunt.model.entity.User;

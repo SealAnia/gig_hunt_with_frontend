@@ -17,6 +17,7 @@ import java.util.List;
 public class TownRestController {
 
     private final TownServiceImpl townService;
+
     @Autowired
     public TownRestController(TownServiceImpl townService) {
         this.townService = townService;

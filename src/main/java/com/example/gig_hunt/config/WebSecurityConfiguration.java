@@ -53,7 +53,8 @@ public class WebSecurityConfiguration {
 
                 .requestMatchers(HttpMethod.GET, "/roles", "/roles/{roleId}",
                         "/users", "/users/{userId}")
-                .hasAuthority("ROLE_ADMIN")
+                //.authenticated()
+                .hasRole("ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/companies", "/companies/number={registrationNumber}",
                         "/companies/by_name", "/companies/by_user")
@@ -77,7 +78,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/orders/{orderId}")
                 .access("@orderDetailsAuthorization.check(authentication, #orderId)")
 
-                .requestMatchers("/orders/my_orders/{userId}/")
+                .requestMatchers("/orders/my_orders/{userId}/*")
                 .access("@orderDetailsAuthorization.checkMaster(authentication, #userId)")
 
                 .requestMatchers(HttpMethod.POST,"/categories/", "/towns/", "/regions/")

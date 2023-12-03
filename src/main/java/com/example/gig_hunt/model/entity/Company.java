@@ -39,6 +39,7 @@ public class Company {
         result = prime * result + Long.hashCode(companyId);
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + Long.hashCode(registrationNumber);
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
     }
 
@@ -52,7 +53,8 @@ public class Company {
         Company companyTwo = (Company) company;
         return companyId == companyTwo.companyId
                 && (name == companyTwo.name || (name != null && name.equals(companyTwo.name)))
-                && registrationNumber == companyTwo.registrationNumber;
+                && registrationNumber == companyTwo.registrationNumber
+                && (user == companyTwo.user || (user != null && user.equals(companyTwo.user)));
     }
 
 }

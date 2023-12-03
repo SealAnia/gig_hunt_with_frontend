@@ -21,4 +21,13 @@ public class Customer extends User {
     @Getter
     private static Long CUSTOMER_ROLE_ID = 3L;
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    public boolean equals(Customer customer) {
+        return super.equals(customer);
+    }
+
 }
