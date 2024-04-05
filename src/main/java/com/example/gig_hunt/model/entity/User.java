@@ -3,7 +3,11 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -22,27 +27,27 @@ import java.util.List;
 @DiscriminatorColumn(name="type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("U")
 @ToString(includeFieldNames = true)
-public abstract class User implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ToString.Include
-    protected Long userId;
+    private Long userId;
 
     @Column(name = "nickname", columnDefinition = "varchar(45)", nullable = false, unique = true)
     @ToString.Include
-    protected String nickname;
+    private String nickname;
 
     @Column(name = "password", columnDefinition = "varchar(225)", nullable = false, unique = false)
     @ToString.Exclude
     @JsonIgnore
-    protected String password;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     @ToString.Include
-    protected Role role;
+    private Role role;
 
     @Embedded
     @AttributeOverrides({
@@ -55,12 +60,12 @@ public abstract class User implements UserDetails {
             @AttributeOverride(name = "postalCode", column = @Column(name = "postal_code", columnDefinition = "NUMBER")),
     })
     @ToString.Exclude
-    protected PersonalData personalData;
+    private PersonalData personalData;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
-    protected List<OrderDetails> orders;
+    private Set<OrderDetails> orders;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -73,38 +78,44 @@ public abstract class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "goods_id"))
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     @JsonIgnore
+    @ToString.Exclude
     private List<Goods> basket;
 
     @Column(name = "account_not_expired", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
+    @ToString.Exclude
     private boolean accountNonExpired;
     @Column(name = "account_not_locked", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
+    @ToString.Exclude
     private boolean accountNonLocked;
     @Column(name = "credentials_not_expired", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
+    @ToString.Exclude
     private boolean credentialsNonExpired;
     @Column(name = "enabled", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
+    @ToString.Exclude
     private boolean enabled;
 
     public void addGoodsToBasket(Goods goods) {
-        this.basket.add(goods);
+        this.getBasket().add(goods);
         goods.getCustomers().add((Customer) this);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         var authorities = new ArrayList<GrantedAuthority>();
-        if (role != null) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        if (getRole() != null) {
+            authorities.add(new SimpleGrantedAuthority(getRole().getName()));
+            System.out.println(getRole().getName());
         }
         return authorities;
     }
 
     @Override
     public String getUsername() {
-        return nickname;
+        return getNickname();
     }
 
     @Override
@@ -131,16 +142,15 @@ public abstract class User implements UserDetails {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(userId);
-        result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((role == null) ? 0: role.hashCode());
-        result = prime * result + ((personalData == null) ? 0 : personalData.hashCode());
-        result = prime * result + ((card == null) ? 0 : card.hashCode());
-        result = prime * result + Boolean.hashCode(accountNonExpired);
-        result = prime * result + Boolean.hashCode(accountNonLocked);
-        result = prime * result + Boolean.hashCode(credentialsNonExpired);
-        result = prime * result + Boolean.hashCode(enabled);
+        result = prime * result + Long.hashCode(getUserId());
+        result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
+        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getRole() == null) ? 0: getRole().hashCode());
+        result = prime * result + ((getPersonalData() == null) ? 0 : getPersonalData().hashCode());
+        result = prime * result + Boolean.hashCode(isAccountNonExpired());
+        result = prime * result + Boolean.hashCode(isAccountNonLocked());
+        result = prime * result + Boolean.hashCode(isCredentialsNonExpired());
+        result = prime * result + Boolean.hashCode(isEnabled());
         return result;
     }
 
@@ -152,16 +162,16 @@ public abstract class User implements UserDetails {
             return false;
         }
         User userTwo = (User) this;
-        return userId == userTwo.userId &&
-                (nickname == userTwo.nickname || (nickname != null && nickname.equals(userTwo.nickname))) &&
-                (password == userTwo.password || (password != null && password.equals(userTwo.password))) &&
-                (role == userTwo.role || (role != null && role.equals(userTwo.role))) &&
-                (personalData == null || (personalData != null && personalData.equals(userTwo.personalData))) &&
-                (card == null || (card != null && card.equals(userTwo.card))) &&
-                accountNonExpired == userTwo.accountNonExpired &&
-                accountNonLocked == userTwo.accountNonLocked &&
-                credentialsNonExpired == userTwo.credentialsNonExpired &&
-                enabled == userTwo.enabled;
+        return getUserId() == userTwo.getUserId() &&
+                (getNickname() == userTwo.getNickname() || (getNickname() != null && getNickname().equals(userTwo.getNickname()))) &&
+                (getPassword() == userTwo.getPassword() || (getPassword() != null && getPassword().equals(userTwo.getPassword()))) &&
+                (getRole() == userTwo.getRole() || (getRole() != null && getRole().equals(userTwo.getRole()))) &&
+                (getPersonalData() == null || (getPersonalData() != null && getPersonalData().equals(userTwo.getPersonalData()))) &&
+                (getCard() == null || (getCard() != null && getCard().equals(userTwo.getCard()))) &&
+                isAccountNonExpired() == userTwo.isAccountNonExpired() &&
+                isAccountNonLocked() == userTwo.isAccountNonLocked() &&
+                isCredentialsNonExpired() == userTwo.isCredentialsNonExpired() &&
+                isEnabled() == userTwo.isEnabled();
     }
 
 }

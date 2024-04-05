@@ -2,9 +2,13 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -27,14 +31,15 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
-    private List<User> users;
+    //private List<User> users;
+    private Set<User> users;
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(roleId);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + Long.hashCode(getRoleId());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         return result;
     }
 
@@ -46,8 +51,8 @@ public class Role {
             return false;
         }
         Role roleTwo = (Role) role;
-        return roleId == roleTwo.roleId
-                && (name == roleTwo.name || (name != null && name.equals(roleTwo.name)));
+        return getRoleId() == roleTwo.getRoleId()
+                && (getName() == roleTwo.getName() || (getName() != null && getName().equals(roleTwo.getName())));
     }
 
 }

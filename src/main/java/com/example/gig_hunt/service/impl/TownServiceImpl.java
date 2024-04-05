@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TownServiceImpl implements TownService {
@@ -42,17 +43,17 @@ public class TownServiceImpl implements TownService {
     }
 
     @Override
-    public List<Town> sortTownsByRegionNameASC() {
+    public Set<Town> sortTownsByRegionNameASC() {
         return townRepository.sortTownsByRegionNameASC();
     }
 
     @Override
-    public List<Town> sortTownsByRegionNameDESC() {
+    public Set<Town> sortTownsByRegionNameDESC() {
         return townRepository.sortTownsByRegionNameDESC();
     }
 
     @Override
-    public List<Town> getTownsOfARegion(String region) {
+    public Set<Town> getTownsOfARegion(String region) {
         return townRepository.getTownsOfARegion(region);
     }
 

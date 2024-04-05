@@ -3,7 +3,11 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -51,12 +55,12 @@ public class Card {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(cardId);
-        result = prime * result + ((cardNumber == null) ? 0 : cardNumber.hashCode());
-        result = prime * result + ((cvv == 0) ? 0 : cvv);
-        result = prime * result + ((holderName == null) ? 0 : holderName.hashCode());
-        result = prime * result + ((validTo == null) ? 0 : validTo.hashCode());
-        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + Long.hashCode(getCardId());
+        result = prime * result + ((getCardNumber() == null) ? 0 : getCardNumber().hashCode());
+        result = prime * result + ((getCvv() == 0) ? 0 : getCvv());
+        result = prime * result + ((getHolderName() == null) ? 0 : getHolderName().hashCode());
+        result = prime * result + ((getValidTo() == null) ? 0 : getValidTo().hashCode());
+        result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
         return result;
     }
 
@@ -68,12 +72,12 @@ public class Card {
             return false;
         }
         Card cardTwo = (Card) this;
-        return cardId == cardTwo.cardId &&
-                (cardNumber == cardTwo.cardNumber || (cardNumber != null && cardNumber.equals(cardTwo.cardNumber))) &&
-                cvv == cardTwo.cvv || (cvv != 0 && cvv == cardTwo.cvv) &&
-                (holderName == cardTwo.holderName || (holderName != null && holderName.equals(cardTwo.holderName))) &&
-                (validTo == cardTwo.validTo || (validTo != null && validTo.equals(cardTwo.validTo))) &&
-                (user == cardTwo.user || (user != null && user.equals(cardTwo.user)));
+        return getCardId() == cardTwo.getCardId() &&
+                (getCardNumber() == cardTwo.getCardNumber() || (getCardNumber() != null && getCardNumber().equals(cardTwo.getCardNumber()))) &&
+                getCvv() == cardTwo.getCvv() || (getCvv() != 0 && getCvv() == cardTwo.getCvv()) &&
+                (getHolderName() == cardTwo.getHolderName() || (getHolderName() != null && getHolderName().equals(cardTwo.getHolderName()))) &&
+                (getValidTo() == cardTwo.getValidTo() || (getValidTo() != null && getValidTo().equals(cardTwo.getValidTo()))) &&
+                (getUser() == cardTwo.getUser() || (getUser() != null && getUser().equals(cardTwo.getUser())));
     }
 
 }

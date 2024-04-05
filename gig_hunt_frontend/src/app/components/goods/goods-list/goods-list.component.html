@@ -1,0 +1,11 @@
+<p>goods-list works!</p>
+
+<button (click)="fetchGoods()">Load goods</button>
+
+<div *ngFor = "let goods of goods$ | async">
+    {{goods.goodsId}} {{goods.description}} {{goods.price}} 
+    <div *ngIf = "goods.image != null">
+        <p>IMAGE: </p>
+        <img [src] = "goods['imageData']" alt="Image">
+    </div>
+</div>

@@ -32,6 +32,10 @@ public class OrderDetailsAuthorization {
             return true;
         }
 
+        else if(order.getGoods().getMaster() != null && order.getGoods().getMaster().getUserId() == user.getUserId()) {
+            return true;
+        }
+
         return false;
     }
 

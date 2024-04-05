@@ -5,15 +5,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TownService extends DefaultService<Town> {
 
     List<Town> sortByNameAsc(Sort sort);
     List<Town> sortByNameDesc(Sort sort);
 
-    List<Town> sortTownsByRegionNameASC();
-    List<Town> sortTownsByRegionNameDESC();
+    Set<Town> sortTownsByRegionNameASC();
+    Set<Town> sortTownsByRegionNameDESC();
 
-    List<Town> getTownsOfARegion(String region);
+    //List<Town> getTownsOfARegion(String region);
+    Set<Town> getTownsOfARegion(String region);
 
 }

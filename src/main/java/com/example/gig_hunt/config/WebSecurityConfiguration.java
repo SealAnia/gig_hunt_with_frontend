@@ -12,6 +12,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -43,16 +48,37 @@ public class WebSecurityConfiguration {
     }
 
     @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                //NEW
+                .cors();
+        http.authorizeRequests().requestMatchers("/**")
+                .fullyAuthenticated().and().httpBasic();
+
+        http
+                .csrf().disable()
                 .authorizeRequests()
+
+                .requestMatchers(HttpMethod.OPTIONS, "/**")
+                .permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/towns**", "/towns/{townId}", "/regions**", "/regions/{regionId}",
                         "/categories**", "/categories/{categoryId}", "/goods**", "/goods/{goodsId}")
                 .permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/roles", "/roles/{roleId}",
-                        "/users", "/users/{userId}")
+                        "/users", "/users/{userId}", "/users/{nickname}/", "/users/{nickname}/{password}")
                 //.authenticated()
                 .hasRole("ADMIN")
 
@@ -91,10 +117,14 @@ public class WebSecurityConfiguration {
 
                 .and()
                 .formLogin()
-                //.loginPage("/login") // Custom login page URL
+                .loginPage("/login_page.html")
+
                 //NEW
+                //.loginProcessingUrl("/perform_login")
+                //
+
                 .defaultSuccessUrl("/")
-                .permitAll() // Allow access to login page
+                .permitAll()
 
                 .and()
                 .logout()

@@ -1,0 +1,26 @@
+<p>login-component works!</p>
+
+  <div class="login-form">
+    <h2>Login</h2>
+    <form>
+      <div *ngIf='invalidLogin'>{{errorMessage}}</div>
+      <div *ngIf='loginSuccess'>{{successMessage}}</div>
+      <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required>
+      </div>
+      <p>
+        <button (click) = "login()">LOGIN</button>
+      </p>
+      <p>
+        <button (click)= "showRoles()">Show Roles</button>
+      </p>
+      <p>
+        <button (click) = "showUsers()">Show Users</button>
+      </p>
+    </form>
+  </div> 

@@ -1,12 +1,13 @@
 package com.example.gig_hunt.service.impl;
 
-import com.example.gig_hunt.model.entity.Customer;
+import com.example.gig_hunt.model.entity.Goods;
 import com.example.gig_hunt.model.entity.Master;
 import com.example.gig_hunt.model.entity.OrderDetails;
 import com.example.gig_hunt.model.entity.OrderStatus;
+import com.example.gig_hunt.model.repository.GoodsRepository;
 import com.example.gig_hunt.model.repository.OrderDetailsRepository;
-import com.example.gig_hunt.model.repository.UserRepository;
 import com.example.gig_hunt.service.OrderDetailsService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,16 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
 
     private final OrderDetailsRepository orderDetailsRepository;
     private final PaymentServiceImpl paymentService;
+    private final GoodsRepository goodsRepo;
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public OrderDetailsServiceImpl(OrderDetailsRepository orderDetailsRepository, PaymentServiceImpl paymentService) {
+    public OrderDetailsServiceImpl(OrderDetailsRepository orderDetailsRepository, PaymentServiceImpl paymentService,
+                                   GoodsRepository goodsRepo, EmailServiceImpl emailService) {
         this.orderDetailsRepository = orderDetailsRepository;
         this.paymentService = paymentService;
+        this.goodsRepo = goodsRepo;
+        this.emailService = emailService;
     }
 
     @Override
@@ -40,7 +46,24 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         if(orderDetails.getQuantity() == 0) {
             orderDetails.setQuantity(1);
         }
-        return orderDetailsRepository.saveAndFlush(orderDetails);
+
+        Goods goods = goodsRepo.findById(orderDetails.getGoods().getGoodsId()).get();
+        System.out.println(goods.toString());
+        Master master = goods.getMaster();
+        String mastersEmail = master.getPersonalData().getEmail();
+
+        OrderDetails od = orderDetailsRepository.saveAndFlush(orderDetails);
+        Long orderId = od.getOrderId();
+
+        try {
+            System.out.println("ORDER ID " + orderDetails.getOrderId());
+            emailService.sendHtmlEmailWithOrderProposition(mastersEmail, orderId);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        //return orderDetailsRepository.saveAndFlush(orderDetails);
+        return od;
     }
 
     @Override
@@ -84,6 +107,15 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
                 master.setBusy(true);
             }
             master.setActiveOrders(activeOrders);
+
+            try {
+                emailService.sendEmailWithOrderAcceptionToCustomer(orderDetails.getCustomer()
+                        .getPersonalData().getEmail(), orderDetails.getOrderId(), OrderStatus.IN_PROGRESS,
+                        orderDetails.getCost());
+            }
+            catch(MessagingException e) {
+                e.printStackTrace();
+            }
         }
         return orderDetailsRepository.saveAndFlush(orderDetails);
     }
@@ -96,6 +128,14 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
             orderDetails.setGoods(orderDetails.getGoods());
             orderDetails.setQuantity(orderDetails.getQuantity());
             orderDetails.setStatus(OrderStatus.DECLINED);
+
+            try {
+                emailService.sendEmailWithOrderDeclinationToCustomer(orderDetails.getCustomer()
+                                .getPersonalData().getEmail(), orderDetails.getOrderId(), OrderStatus.DECLINED);
+            }
+            catch(MessagingException e) {
+                e.printStackTrace();
+            }
         }
         return orderDetailsRepository.saveAndFlush(orderDetails);
     }

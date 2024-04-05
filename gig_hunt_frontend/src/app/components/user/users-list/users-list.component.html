@@ -1,1 +1,8 @@
 <p>users-list works!</p>
+
+<a href = "/localhost:4200/">To main page</a>
+
+<h3>USERS</h3>
+<div *ngFor = "let user of users$ | async">
+    {{user.userId}}. {{user.nickname}}
+</div>

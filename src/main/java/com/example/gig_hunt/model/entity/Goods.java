@@ -3,7 +3,11 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -37,16 +41,21 @@ public class Goods {
 
     @ManyToMany(mappedBy = "basket", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
+    @ToString.Exclude
     private List<Customer> customers;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(goodsId);
-        result = prime * result + Double.hashCode(price);
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((master == null) ? 0 : master.hashCode());
+        result = prime * result + Long.hashCode(getGoodsId());
+        result = prime * result + Double.hashCode(getPrice());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        result = prime * result + ((getMaster() == null) ? 0 : getMaster().hashCode());
         return result;
     }
 
@@ -58,10 +67,58 @@ public class Goods {
             return false;
         }
         Goods goodsTwo = (Goods) goods;
-        return goodsId == goodsTwo.goodsId
-                && (price == goodsTwo.price || (price != null && price == goodsTwo.price))
-                && (description == goodsTwo.description || (description != null && description.equals(goodsTwo.description)))
-                && (master == goodsTwo.master || (master != null && master.equals(goodsTwo.master)));
+        return getGoodsId() == goodsTwo.getGoodsId()
+                && (getPrice() == goodsTwo.getPrice() || (getPrice() != null && getPrice() == goodsTwo.getPrice()))
+                && (getDescription() == goodsTwo.getDescription() || (getDescription() != null && getDescription().equals(goodsTwo.getDescription())))
+                && (getMaster() == goodsTwo.getMaster() || (getMaster() != null && getMaster().equals(goodsTwo.getMaster())));
     }
+
+    //public Long getGoodsId() {
+        //return goodsId;
+    //}
+
+    //public void setGoodsId(Long goodsId) {
+        //this.goodsId = goodsId;
+    //}
+
+    //public Master getMaster() {
+        //return master;
+    //}
+
+    //public void setMaster(Master master) {
+        //this.master = master;
+    //}
+
+    //public Double getPrice() {
+        //return price;
+    //}
+
+    //public void setPrice(Double price) {
+        //this.price = price;
+    //}
+
+    //public String getDescription() {
+        //return description;
+    //}
+
+    //public void setDescription(String description) {
+        //this.description = description;
+    //}
+
+    //public List<Customer> getCustomers() {
+        //return customers;
+    //}
+
+    //public void setCustomers(List<Customer> customers) {
+        //this.customers = customers;
+    //}
+
+    //public byte[] getImage() {
+        //return image;
+    //}
+
+    //public void setImage(byte[] image) {
+        //this.image = image;
+    //}
 
 }

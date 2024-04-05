@@ -1,18 +1,15 @@
 package com.example.gig_hunt.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Entity
 @Table(name = "user")
 @Getter
-@Setter
 @NoArgsConstructor
 @DiscriminatorValue("C")
 @ToString(callSuper = true, includeFieldNames = true)

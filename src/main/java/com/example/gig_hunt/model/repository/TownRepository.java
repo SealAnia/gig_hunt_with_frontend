@@ -7,20 +7,24 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface TownRepository extends JpaRepository<Town, Long> {
 
     @Query(value = "SELECT t.town_id, t.name, t.region_id FROM town t INNER JOIN region r ON r.region_id = t.region_id " +
             "ORDER BY r.name ASC", nativeQuery = true)
-    List<Town> sortTownsByRegionNameASC();
+    //List<Town> sortTownsByRegionNameASC();
+    Set<Town> sortTownsByRegionNameASC();
 
     @Query(value = "SELECT t.town_id, t.name, t.region_id FROM town t INNER JOIN region r ON r.region_id = t.region_id " +
             "ORDER BY r.name DESC", nativeQuery = true)
-    List<Town> sortTownsByRegionNameDESC();
+    //List<Town> sortTownsByRegionNameDESC();
+    Set<Town> sortTownsByRegionNameDESC();
 
     @Query(value = "SELECT t.town_id, t.name, t.region_id FROM town t INNER JOIN region r ON t.region_id = r.region_id " +
             "WHERE r.name = :region", nativeQuery = true)
-    List<Town> getTownsOfARegion(@Param("region") String region);
+    //List<Town> getTownsOfARegion(@Param("region") String region);
+    Set<Town> getTownsOfARegion(@Param("region") String region);
 
 }

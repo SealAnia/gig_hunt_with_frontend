@@ -2,7 +2,11 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "company")
@@ -36,10 +40,10 @@ public class Company {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(companyId);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + Long.hashCode(registrationNumber);
-        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + Long.hashCode(getCompanyId());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + Long.hashCode(getRegistrationNumber());
+        result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
         return result;
     }
 
@@ -51,10 +55,10 @@ public class Company {
             return false;
         }
         Company companyTwo = (Company) company;
-        return companyId == companyTwo.companyId
-                && (name == companyTwo.name || (name != null && name.equals(companyTwo.name)))
-                && registrationNumber == companyTwo.registrationNumber
-                && (user == companyTwo.user || (user != null && user.equals(companyTwo.user)));
+        return getCompanyId() == companyTwo.getCompanyId()
+                && (getName() == companyTwo.getName() || (getName() != null && getName().equals(companyTwo.getName())))
+                && getRegistrationNumber() == companyTwo.getRegistrationNumber()
+                && (getUser() == companyTwo.getUser() || (getUser() != null && getUser().equals(companyTwo.getUser())));
     }
 
 }

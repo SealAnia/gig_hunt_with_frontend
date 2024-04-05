@@ -4,6 +4,8 @@
     <button type = "button" (click) = "fetchRoles()">REFRESH</button></p>
 </div>
 
+<p>Hello, {{loggedUser}}!</p>
+
 <strong>ROLES:</strong>
 
 <div *ngFor = "let role of roles$ | async">

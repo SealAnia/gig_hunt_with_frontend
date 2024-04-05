@@ -2,9 +2,13 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "region")
@@ -27,14 +31,14 @@ public class Region {
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, orphanRemoval = false)
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     @ToString.Exclude
-    private List<Town> towns;
+    private Set<Town> towns;
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(regionId);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + Long.hashCode(getRegionId());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         return result;
     }
 
@@ -46,8 +50,8 @@ public class Region {
             return false;
         }
         Region regionTwo = (Region) region;
-        return regionId == region.regionId
-                && (name == regionTwo.name || (name != null && name.equals(regionTwo.name)));
+        return getRegionId() == region.getRegionId()
+                && (getName() == regionTwo.getName() || (getName() != null && getName().equals(regionTwo.getName())));
     }
 
 }

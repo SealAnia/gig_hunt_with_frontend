@@ -1,6 +1,8 @@
 package com.example.gig_hunt.controller;
 
+import com.example.gig_hunt.model.entity.Customer;
 import com.example.gig_hunt.model.entity.Goods;
+import com.example.gig_hunt.model.entity.User;
 import com.example.gig_hunt.model.repository.UserRepository;
 import com.example.gig_hunt.service.impl.GoodsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/goods")
 public class GoodsRestController {
@@ -38,12 +42,12 @@ public class GoodsRestController {
     //FINDS ALL ITEMS FROM A CERTAIN MASTER (FOR A CUSTOMER)
     @GetMapping(value = "/from_master")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public List<Goods> findItemsFromMaster(@RequestParam(value = "master_id") Long userId) {
+    public Set<Goods> findItemsFromMaster(@RequestParam(value = "master_id") Long userId) {
         return goodsService.findItemsFromMaster(userId);
     }
 
     @PostMapping(value = "/")
-    public void createItem(@RequestBody Goods goods) {
+    public void createItem(@ModelAttribute Goods goods) {
         goodsService.createOrUpdate(goods);
     }
 

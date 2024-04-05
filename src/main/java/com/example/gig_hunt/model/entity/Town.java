@@ -2,10 +2,15 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import jakarta.persistence.*;
-import java.util.List;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "town")
@@ -34,15 +39,15 @@ public class Town {
     @OneToMany(mappedBy = "town", cascade = CascadeType.ALL, orphanRemoval = false)
     @JsonIgnore
     @ToString.Exclude
-    private List<Master> users;
+    private Set<Master> users;
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(townId);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((region == null) ? 0 : region.hashCode());
+        result = prime * result + Long.hashCode(getTownId());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getRegion() == null) ? 0 : getRegion().hashCode());
         return 1;
     }
 
@@ -54,9 +59,9 @@ public class Town {
             return false;
         }
         Town townTwo = (Town) town;
-        return townId == townTwo.townId
-                && (name == townTwo.name || (name != null && name.equals(townTwo.name)))
-                && (region == townTwo.region || (region != null && region.equals(townTwo.region)));
+        return getTownId() == townTwo.getTownId()
+                && (getName() == townTwo.getName() || (getName() != null && getName().equals(townTwo.getName())))
+                && (getRegion() == townTwo.getRegion() || (getRegion() != null && getRegion().equals(townTwo.getRegion())));
     }
 
 }

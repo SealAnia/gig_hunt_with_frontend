@@ -2,7 +2,11 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.annotation.Transient;
@@ -52,17 +56,25 @@ public class OrderDetails {
     @Column(name = "order_status")
     private OrderStatus status;
 
+    public static Log getLog() {
+        return log;
+    }
+
+    public static void setLog(Log log) {
+        OrderDetails.log = log;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.hashCode(orderId);
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-        result = prime * result + ((goods == null) ? 0 : goods.hashCode());
-        result = prime * result + quantity;
-        result = prime * result + ((cost == null) ? 0 : Double.hashCode(cost));
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + Long.hashCode(getOrderId());
+        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
+        result = prime * result + ((getCustomer() == null) ? 0 : getCustomer().hashCode());
+        result = prime * result + ((getGoods() == null) ? 0 : getGoods().hashCode());
+        result = prime * result + getQuantity();
+        result = prime * result + ((getCost() == null) ? 0 : Double.hashCode(getCost()));
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 
@@ -74,31 +86,31 @@ public class OrderDetails {
             return false;
         }
         OrderDetails orderTwo = (OrderDetails) order;
-        return orderId == orderTwo.orderId
-                && (date == orderTwo.date || (date != null && date.equals(orderTwo.date)))
-                && (customer == orderTwo.customer || customer != null && customer.equals(orderTwo.customer))
-                && (goods == orderTwo.goods || goods != null && goods.equals(orderTwo.goods))
-                && quantity == orderTwo.quantity
-                && (cost == orderTwo.cost || (cost != null && cost.equals(orderTwo.cost)))
-                && (status == orderTwo.status || (status != null && status.equals(orderTwo.status)));
+        return getOrderId() == orderTwo.getOrderId()
+                && (getDate() == orderTwo.getDate() || (getDate() != null && getDate().equals(orderTwo.getDate())))
+                && (getCustomer() == orderTwo.getCustomer() || getCustomer() != null && getCustomer().equals(orderTwo.getCustomer()))
+                && (getGoods() == orderTwo.getGoods() || getGoods() != null && getGoods().equals(orderTwo.getGoods()))
+                && getQuantity() == orderTwo.getQuantity()
+                && (getCost() == orderTwo.getCost() || (getCost() != null && getCost().equals(orderTwo.getCost())))
+                && (getStatus() == orderTwo.getStatus() || (getStatus() != null && getStatus().equals(orderTwo.getStatus())));
     }
 
     @PrePersist
     public void logNewOrderDetailsAttempt() {
-        log.info("Attempting to add new order with id: " + orderId);
+        getLog().info("Attempting to add new order with id: " + getOrderId());
     }
 
     @PostPersist
     public void logNewOrderDetailsAdd() {
-        log.info("Added order with ID: " + orderId);
+        getLog().info("Added order with ID: " + getOrderId());
     }
 
     @PostLoad
     public void countCost() {
-        Master master = goods.getMaster();
-        log.info(master.getNickname());
-        cost = quantity * goods.getPrice();
-        log.info("COST = " + cost);
+        Master master = getGoods().getMaster();
+        getLog().info(master.getNickname());
+        setCost(getQuantity() * getGoods().getPrice());
+        getLog().info("COST = " + getCost());
     }
 
 }

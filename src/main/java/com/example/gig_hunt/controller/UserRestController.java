@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,23 +32,33 @@ public class UserRestController {
         return userService.readById(userId);
     }
 
+    @GetMapping(value = "/{nickname}/")
+    public User findByNickname(@PathVariable String nickname) {
+        return userService.findByNickname(nickname);
+    }
+
+    @GetMapping(value = "/{nickname}/{password}")
+    public User findByNicknameAndPassword(@PathVariable String nickname, @PathVariable String password) {
+        return userService.findByNicknameAndPassword(nickname, password);
+    }
+
     //RETURNS ORDERS THAT A CERTAIN CUSTOMER HAS ORDERED
     @GetMapping(value = "/{userId}/orders")
-    public List<OrderDetails> findOrdersForUser(@PathVariable Long userId) {
+    public Set<OrderDetails> findOrdersForUser(@PathVariable Long userId) {
         return userService.findOrdersForUser(userId);
     }
 
     //RETURNS ALL MASTERS IN A CERTAIN ONLINE CATEGORY
     @GetMapping(value = "/masters/{categoryId}")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public List<Master> findMastersInCategory(@PathVariable Long categoryId) {
+    public Set<Master> findMastersInCategory(@PathVariable Long categoryId) {
         return userService.findMastersInCategory(categoryId);
     }
 
     //RETURNS ALL MASTER FROM A CERTAIN TOWN IN AN OFFLINE CATEGORY
     @GetMapping(value = "/masters/{categoryId}/{townId}")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public List<Master> findMastersInCategoryAndFromTown(@PathVariable Long categoryId, @PathVariable Long townId) {
+    public Set<Master> findMastersInCategoryAndFromTown(@PathVariable Long categoryId, @PathVariable Long townId) {
         return userService.findMastersInCategoryAndFromTown(categoryId, townId);
     }
 

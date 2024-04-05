@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegionsListComponent } from './components/region/regions-list/regions-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AddRegionComponent } from './components/region/add-region/add-region.component';
 import { RegionDetailsComponent } from './components/region/region-details/region-details.component';
@@ -20,6 +20,14 @@ import { UserDetailsComponent } from './components/user/user-details/user-detail
 import { AddRoleComponent } from './components/role/add-role/add-role.component';
 import { RoleDetailsComponent } from './components/role/role-details/role-details.component';
 import { RolesListComponent } from './components/role/roles-list/roles-list.component';
+import { GoodsDetailsComponent } from './components/goods/goods-details/goods-details.component';
+import { GoodsListComponent } from './components/goods/goods-list/goods-list.component';
+import { AddGoodsComponent } from './components/goods/add-goods/add-goods.component';
+import { LoginComponentComponent } from './components/login-component/login-component.component';
+//NEW
+import { LoginService } from './services/login.service';
+import { HttpInterceptorServiceService } from './services/http-interceptor-service.service';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +46,12 @@ import { RolesListComponent } from './components/role/roles-list/roles-list.comp
     UserDetailsComponent,
     AddRoleComponent,
     RoleDetailsComponent,
-    RolesListComponent
+    RolesListComponent,
+    GoodsDetailsComponent,
+    GoodsListComponent,
+    AddGoodsComponent,
+    LoginComponentComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +60,13 @@ import { RolesListComponent } from './components/role/roles-list/roles-list.comp
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  //NEW
+  providers: //[LoginService],
+  [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpInterceptorServiceService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -36,6 +37,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User readById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    //NEW
+    @Override
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname);
+    }
+
+    //NEW
+    @Override
+    public User findByNicknameAndPassword(String nickname, String password) {
+        return userRepository.findByNicknameAndPassword(nickname, password);
     }
 
     @Override
@@ -66,18 +79,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<OrderDetails> findOrdersForUser(Long userId) {
+    public Set<OrderDetails> findOrdersForUser(Long userId) {
         User user = userRepository.findById(userId).get();
         return user.getOrders();
     }
 
     @Override
-    public List<Master> findMastersInCategory(Long categoryId) {
+    public Set<Master> findMastersInCategory(Long categoryId) {
         return userRepository.findMastersInCategory(categoryId);
     }
 
     @Override
-    public List<Master> findMastersInCategoryAndFromTown(Long categoryId, Long townId) {
+    public Set<Master> findMastersInCategoryAndFromTown(Long categoryId, Long townId) {
         return userRepository.findMastersInCategoryAndFromTown(categoryId,townId);
     }
 

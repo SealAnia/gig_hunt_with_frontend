@@ -1,7 +1,9 @@
 package com.example.gig_hunt.controller;
 
 import com.example.gig_hunt.model.entity.Role;
+import com.example.gig_hunt.model.entity.User;
 import com.example.gig_hunt.service.impl.RoleServiceImpl;
+import com.example.gig_hunt.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

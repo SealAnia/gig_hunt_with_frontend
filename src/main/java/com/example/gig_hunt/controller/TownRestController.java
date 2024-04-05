@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -44,17 +45,17 @@ public class TownRestController {
     }
 
     @GetMapping(value = "/sorted_by_region_asc")
-    public ResponseEntity<List<Town>> sortTownsByRegionAsc() {
+    public ResponseEntity<Set<Town>> sortTownsByRegionAsc() {
         return ResponseEntity.ok(townService.sortTownsByRegionNameASC());
     }
 
     @GetMapping(value = "/sorted_by_region_desc")
-    public ResponseEntity<List<Town>> sortTownsByRegionDesc() {
+    public ResponseEntity<Set<Town>> sortTownsByRegionDesc() {
         return ResponseEntity.ok(townService.sortTownsByRegionNameDESC());
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<Town>> getTownsOfARegion(@RequestParam String region) {
+    public ResponseEntity<Set<Town>> getTownsOfARegion(@RequestParam String region) {
         return ResponseEntity.ok(townService.getTownsOfARegion(region));
     }
 

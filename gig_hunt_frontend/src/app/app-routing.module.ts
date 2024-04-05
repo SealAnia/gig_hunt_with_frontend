@@ -15,8 +15,18 @@ import { AddUserComponent } from './components/user/add-user/add-user.component'
 import { RolesListComponent } from './components/role/roles-list/roles-list.component';
 import { RoleDetailsComponent } from './components/role/role-details/role-details.component';
 import { AddRoleComponent } from './components/role/add-role/add-role.component';
+import { GoodsListComponent } from './components/goods/goods-list/goods-list.component';
+import { GoodsDetailsComponent } from './components/goods/goods-details/goods-details.component';
+import { AddGoodsComponent } from './components/goods/add-goods/add-goods.component';
+import { LoginComponentComponent } from './components/login-component/login-component.component';
+import { MainComponent } from './components/main/main.component';
+import { AppComponent } from './app.component';
+//import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
+  //{path: '', component: AppComponent},
+
+  {path: 'main_page.html', component: MainComponent},
   {path: 'regions', component: RegionsListComponent},
   {path: 'regions/:regionId', component: RegionDetailsComponent},
   {path: 'add_region', component: AddRegionComponent},
@@ -29,13 +39,22 @@ const routes: Routes = [
   {path: 'roles', component: RolesListComponent},
   {path: 'roles/:roleId', component: RoleDetailsComponent}, 
   {path: 'add_role', component: AddRoleComponent},
-  {path: 'users', component: UsersListComponent},
+  {path: 'users', component: UsersListComponent}, 
   {path: 'users/:userId', component: UserDetailsComponent}, 
-  {path: 'add_user', component: AddUserComponent}
+  {path: 'users/:nickname/', component: UserDetailsComponent}, 
+
+  {path: 'add_user', component: AddUserComponent},
+  {path: 'goods', component: GoodsListComponent},
+
+  {path: 'goods/:goodsId', component: GoodsDetailsComponent},
+  {path: 'add_goods', component: AddGoodsComponent},
+  {path: 'login_page.html', component: LoginComponentComponent},
+  {path: "", redirectTo: "login_page.html", pathMatch: 'full'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

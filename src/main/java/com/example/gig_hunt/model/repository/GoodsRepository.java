@@ -7,11 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
     @Query(value = "SELECT * FROM goods g WHERE g.master_id = :master_id", nativeQuery = true)
-    List<Goods> findItemsFromMaster(@Param("master_id") Long userId);
+    //List<Goods> findItemsFromMaster(@Param("master_id") Long userId);
+    Set<Goods> findItemsFromMaster(@Param("master_id") Long userId);
 
 }

@@ -1,0 +1,12 @@
+<p>goods-details works!</p>
+
+<div>
+    <p><strong>{{currentGoods.description}}</strong></p>
+    <p>{{currentGoods.price}}</p>
+    <!-- <p>{{currentGoods.image}}</p> -->
+    <div *ngIf = "currentGoods.image != null">
+        <p>
+            <img [src] = "currentGoods['imageData']" alt="Image">
+        </p>
+    </div>
+</div>
