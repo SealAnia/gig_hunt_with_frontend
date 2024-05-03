@@ -10,7 +10,6 @@ import java.util.Set;
 
 public interface UserService extends DefaultService<User> {
 
-    Set<OrderDetails> findOrdersForUser(Long userId);
     Set<Master> findMastersInCategory(Long categoryId);
     Set<Master> findMastersInCategoryAndFromTown(Long categoryId, Long townId);
     Double countEarnedAmount(Long masterId);

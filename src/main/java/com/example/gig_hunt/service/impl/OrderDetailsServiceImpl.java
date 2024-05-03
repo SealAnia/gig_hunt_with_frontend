@@ -1,9 +1,6 @@
 package com.example.gig_hunt.service.impl;
 
-import com.example.gig_hunt.model.entity.Goods;
-import com.example.gig_hunt.model.entity.Master;
-import com.example.gig_hunt.model.entity.OrderDetails;
-import com.example.gig_hunt.model.entity.OrderStatus;
+import com.example.gig_hunt.model.entity.*;
 import com.example.gig_hunt.model.repository.GoodsRepository;
 import com.example.gig_hunt.model.repository.OrderDetailsRepository;
 import com.example.gig_hunt.service.OrderDetailsService;
@@ -12,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderDetailsServiceImpl implements OrderDetailsService {
@@ -21,13 +19,17 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     private final GoodsRepository goodsRepo;
     private final EmailServiceImpl emailService;
 
+    private final UserServiceImpl userService;
+
     @Autowired
     public OrderDetailsServiceImpl(OrderDetailsRepository orderDetailsRepository, PaymentServiceImpl paymentService,
-                                   GoodsRepository goodsRepo, EmailServiceImpl emailService) {
+                                   GoodsRepository goodsRepo, EmailServiceImpl emailService, UserServiceImpl userService) {
         this.orderDetailsRepository = orderDetailsRepository;
         this.paymentService = paymentService;
         this.goodsRepo = goodsRepo;
         this.emailService = emailService;
+
+        this.userService = userService;
     }
 
     @Override
@@ -62,13 +64,18 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
             e.printStackTrace();
         }
 
-        //return orderDetailsRepository.saveAndFlush(orderDetails);
         return od;
     }
 
     @Override
     public void delete(Long id) {
         orderDetailsRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<OrderDetails> getOrderForCustomer(Long userId) {
+        User customer = (Customer) userService.readById(userId);
+        return customer.getOrders();
     }
 
     @Override

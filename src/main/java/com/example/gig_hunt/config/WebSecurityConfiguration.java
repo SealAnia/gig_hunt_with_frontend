@@ -60,11 +60,12 @@ public class WebSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                //NEW
-                .cors();
-        http.authorizeRequests().requestMatchers("/**")
-                .fullyAuthenticated().and().httpBasic();
+        http.cors();
+
+        //http.authorizeRequests()
+
+                //.requestMatchers("/**")
+                //.fullyAuthenticated().and().httpBasic();
 
         http
                 .csrf().disable()
@@ -95,8 +96,8 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/companies/{companyId}")
                 .access ("@companyAuthorization.check(authentication, #companyId)")
 
-                .requestMatchers("/users/{userId}/orders")
-                .access("@userAuthorization.check(authentication, #userId)")
+                .requestMatchers("/orders/users/{userId}")
+                .access("@userAuthorization.checkCustomer(authentication, #userId)")
 
                 .requestMatchers("/users/masters/amount/{userId}", "/users/masters/amount_for_month/{userId}")
                 .access("@userAuthorization.checkMaster(authentication, #userId)")
@@ -117,7 +118,7 @@ public class WebSecurityConfiguration {
 
                 .and()
                 .formLogin()
-                .loginPage("/login_page.html")
+                //.loginPage("/login_page.html")
 
                 //NEW
                 //.loginProcessingUrl("/perform_login")

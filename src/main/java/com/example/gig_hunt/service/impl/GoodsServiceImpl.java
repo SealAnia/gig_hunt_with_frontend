@@ -32,6 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
 
         List<Goods> goods = goodsRepository.findAll();
         for(Goods g : goods) {
+            //System.out.println(g.getImage());
             if(g.getImage() != null) {
                 byte[] imageBytes = g.getImage();
                 String base64String = Base64.getEncoder().encodeToString(imageBytes);

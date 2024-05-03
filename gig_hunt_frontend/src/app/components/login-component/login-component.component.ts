@@ -79,7 +79,7 @@ export class LoginComponentComponent implements OnInit {
   }
 
   showUsers() {
-    this.authService.retrieveRoles(this.username, this.password).subscribe((result)=> {
+    this.authService.retrieveUsers(this.username, this.password).subscribe((result)=> {
       console.log(this.username + " " + this.password);
 
       this.userService.getByUsername(this.username)

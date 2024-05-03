@@ -4,17 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Table(name = "goods")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
@@ -73,52 +69,51 @@ public class Goods {
                 && (getMaster() == goodsTwo.getMaster() || (getMaster() != null && getMaster().equals(goodsTwo.getMaster())));
     }
 
-    //public Long getGoodsId() {
-        //return goodsId;
-    //}
+    public Long getGoodsId() {
+        return goodsId;
+    }
 
-    //public void setGoodsId(Long goodsId) {
-        //this.goodsId = goodsId;
-    //}
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
+    }
 
-    //public Master getMaster() {
-        //return master;
-    //}
+    public Master getMaster() {
+        return master;
+    }
 
-    //public void setMaster(Master master) {
-        //this.master = master;
-    //}
+    public void setMaster(Master master) {
+        this.master = master;
+    }
 
-    //public Double getPrice() {
-        //return price;
-    //}
+    public Double getPrice() {
+        return price;
+    }
 
-    //public void setPrice(Double price) {
-        //this.price = price;
-    //}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-    //public String getDescription() {
-        //return description;
-    //}
+    public String getDescription() {
+        return description;
+    }
 
-    //public void setDescription(String description) {
-        //this.description = description;
-    //}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    //public List<Customer> getCustomers() {
-        //return customers;
-    //}
+    public List<Customer> getCustomers() {
+        return customers;
+    }
 
-    //public void setCustomers(List<Customer> customers) {
-        //this.customers = customers;
-    //}
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
 
-    //public byte[] getImage() {
-        //return image;
-    //}
+    public byte[] getImage() {
+        return image;
+    }
 
-    //public void setImage(byte[] image) {
-        //this.image = image;
-    //}
-
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

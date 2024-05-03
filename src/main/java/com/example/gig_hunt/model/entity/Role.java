@@ -3,17 +3,13 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "role")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
@@ -55,4 +51,27 @@ public class Role {
                 && (getName() == roleTwo.getName() || (getName() != null && getName().equals(roleTwo.getName())));
     }
 
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

@@ -54,7 +54,7 @@ public class GoodsRestController {
     @PostMapping(value = "/{userId}/add_to_basket")
     public ResponseEntity<Goods> editBasket(@PathVariable(value = "userId") Long userId, @RequestBody Goods goodsReq) {
         Optional<Object> goods = userRepository.findById(userId).map(customer -> {
-            long goodsId = goodsReq.getGoodsId();
+            Long goodsId = goodsReq.getGoodsId();
             if(goodsId != 0L) {
                 Goods newGoods = goodsService.readById(goodsId);
                 customer.addGoodsToBasket(newGoods);

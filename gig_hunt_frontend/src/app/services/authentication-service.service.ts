@@ -13,7 +13,6 @@ export class AuthenticationServiceService {
 
   public username: String = '';
   public password: String = '';
-  //NEW
   public currentUser?: User;
 
   constructor(private http: HttpClient, 
@@ -30,18 +29,17 @@ export class AuthenticationServiceService {
       }));
   }
 
-  //NEW
   retrieveGoods() {
     return this.http.get(`http://localhost:8080/goods`);
   }
 
   retrieveRoles(username: string, password: string) {
-    console.log('Is logged in: ' + this.isUserLoggedIn);
+    console.log('Is logged in: ' + this.isUserLoggedIn());
     return this.http.get(`http://localhost:8080/roles`,
       { headers: { authorization: this.createBasicAuthToken(username, password) } }).pipe(map((res) => {
         this.username = username;
         this.password = password;
-        console.log(this.username + " " + this.password);
+        console.log('USERNAME: ' + this.username + ' PASSWORD: ' + this.password);
         this.registerSuccessfulLogin(username, password);
       }));
   }
@@ -54,8 +52,12 @@ export class AuthenticationServiceService {
         console.log(this.username + " " + this.password);
         this.registerSuccessfulLogin(username, password);
         //NEW
-        this.isUserLoggedIn;
-        console.log('User logged in ' + this.isUserLoggedIn);
+        //this.isUserLoggedIn() = true;
+
+        //console.log('User logged in ' + (this.isUserLoggedIn() == true));
+        console.log(this.isUserLoggedIn());
+        console.log(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+        console.log('CURRENT USER: ' + this.currentUser?.nickname);
       }));
   }
 
@@ -64,6 +66,8 @@ export class AuthenticationServiceService {
   }
 
   registerSuccessfulLogin(username: string, password: string) {
+    console.log('LOGIN SUCCESSFULL');
+    console.log('USERNAME: ' + this.username + " PASSWORD: " + this.password);
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username);
   }
 
@@ -73,12 +77,13 @@ export class AuthenticationServiceService {
     this.password = '';
   }
 
-  isUserLoggedIn() : boolean {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+  isUserLoggedIn(): boolean {
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     if (user === null) {
-      return false
+      return false;
     }
-    return true
+    console.log(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    return true;
   }
 
   getLoggedInUserName() : string {

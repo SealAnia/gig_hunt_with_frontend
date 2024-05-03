@@ -8,10 +8,16 @@
       <div>
         <label for="username">Username</label>
         <input type="text" id="username" name="username" [(ngModel)]="username" required>
+
+        {{this.username}}
+
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" [(ngModel)]="password" required>
+
+        {{this.password}}
+        
       </div>
       <p>
         <button (click) = "login()">LOGIN</button>

@@ -39,13 +39,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findById(id).get();
     }
 
-    //NEW
     @Override
     public User findByNickname(String nickname) {
         return userRepository.findByNickname(nickname);
     }
 
-    //NEW
     @Override
     public User findByNicknameAndPassword(String nickname, String password) {
         return userRepository.findByNicknameAndPassword(nickname, password);
@@ -76,12 +74,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public Set<OrderDetails> findOrdersForUser(Long userId) {
-        User user = userRepository.findById(userId).get();
-        return user.getOrders();
     }
 
     @Override

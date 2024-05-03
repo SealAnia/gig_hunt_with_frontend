@@ -42,12 +42,6 @@ public class UserRestController {
         return userService.findByNicknameAndPassword(nickname, password);
     }
 
-    //RETURNS ORDERS THAT A CERTAIN CUSTOMER HAS ORDERED
-    @GetMapping(value = "/{userId}/orders")
-    public Set<OrderDetails> findOrdersForUser(@PathVariable Long userId) {
-        return userService.findOrdersForUser(userId);
-    }
-
     //RETURNS ALL MASTERS IN A CERTAIN ONLINE CATEGORY
     @GetMapping(value = "/masters/{categoryId}")
     @PreAuthorize("hasRole('CUSTOMER')")

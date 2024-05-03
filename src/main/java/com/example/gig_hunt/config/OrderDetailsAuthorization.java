@@ -23,27 +23,24 @@ public class OrderDetailsAuthorization {
         String username = authentication.getName();
         User user = (User) userService.loadUserByUsername(username);
         OrderDetails order = orderDetailsService.readById(orderId);
-
         if (order == null) {
             return false;
         }
-
         else if (order.getCustomer() != null && order.getCustomer().getUserId() == user.getUserId()) {
             return true;
         }
-
         else if(order.getGoods().getMaster() != null && order.getGoods().getMaster().getUserId() == user.getUserId()) {
             return true;
         }
-
         return false;
     }
 
     public boolean checkMaster(Authentication authentication, Long userId) {
         String username = authentication.getName();
         Master master = (Master) userService.loadUserByUsername(username);
+        userId = master.getUserId();
         if(master.getUsername().equals(username) && master.getRole().getName().equals("ROLE_MASTER")
-        && master.getUserId().equals(userId)) {
+                && master.getUserId().equals(userId)) {
             return true;
         }
         return false;

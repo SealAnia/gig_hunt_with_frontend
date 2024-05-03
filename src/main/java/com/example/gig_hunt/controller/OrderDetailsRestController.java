@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -34,6 +35,12 @@ public class OrderDetailsRestController {
     @GetMapping(value = "/my_orders/{userId}/")
     public List<OrderDetails> getOrdersOfMaster(@PathVariable Long userId) {
         return orderDetailsService.getOrdersOfMaster(userId);
+    }
+
+    //@GetMapping(value = "/{userId}/get_my_orders")
+    @GetMapping(value = "/users/{userId}")
+    public Set<OrderDetails> getOrdersOfCustomer(@PathVariable Long userId) {
+        return orderDetailsService.getOrderForCustomer(userId);
     }
 
     @GetMapping(value = "/my_orders/{userId}/by_date")

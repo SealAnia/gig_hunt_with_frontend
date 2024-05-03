@@ -3,17 +3,13 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "category")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
@@ -66,4 +62,43 @@ public class Category {
                 && isAvailableOnline() == categoryTwo.isAvailableOnline();
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public boolean isAvailableOnline() {
+        return isAvailableOnline;
+    }
+
+    public void setAvailableOnline(boolean availableOnline) {
+        isAvailableOnline = availableOnline;
+    }
+
+    public Set<Master> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Master> users) {
+        this.users = users;
+    }
 }

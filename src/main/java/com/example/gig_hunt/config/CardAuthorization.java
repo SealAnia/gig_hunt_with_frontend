@@ -17,17 +17,10 @@ public class CardAuthorization {
     public boolean check(Authentication authentication, Long cardId) {
         String username = authentication.getName();
         User user = (User) userService.loadUserByUsername(username);
-
-        //if(cardId == null) {
-            //cardId = user.getCard().getCardId();
-        //}
-
-        System.out.println("Username: " + username);
-        System.out.println("Card ID: " + cardId);
-        System.out.println("User ID: " + user.getUserId());
-
-        if (user != null && user.getNickname().equals(username) && user.getCard() != null) {
-            return user.getCard().getCardId() != null && user.getCard().getCardId().equals(cardId);
+        System.out.println("USERNAME " + username);
+        if (user != null && user.getNickname().equals(username) && user.getCard() != null &&
+                user.getCard().getCardId() == cardId) {
+            return user.getCard().getCardId() != null && user.getCard().getCardId() == cardId;
         }
 
         return false;

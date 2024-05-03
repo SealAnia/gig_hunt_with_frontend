@@ -18,10 +18,10 @@ public class CompanyAuthorization {
     public boolean check(Authentication authentication, Long companyId) {
         String username = authentication.getName();
         Master user = (Master) userService.loadUserByUsername(username);
-        User u = userService.readById(user.getUserId());
+        User u = (Master) userService.readById(user.getUserId());
         if(user != null && user.getNickname().equals(username)
                 && user.getRole().getName().equals("ROLE_MASTER") && user.getCompany() != null) {
-            return user.getCompany().getCompanyId() != null && user.getCompany().getCompanyId().equals(companyId);
+            return user.getCompany().getCompanyId() != null && user.getCompany().getCompanyId() == companyId;
         }
         return false;
     }

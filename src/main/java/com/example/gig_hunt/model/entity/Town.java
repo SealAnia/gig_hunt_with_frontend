@@ -3,9 +3,7 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import jakarta.persistence.*;
@@ -14,8 +12,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "town")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
@@ -64,4 +60,35 @@ public class Town {
                 && (getRegion() == townTwo.getRegion() || (getRegion() != null && getRegion().equals(townTwo.getRegion())));
     }
 
+    public Long getTownId() {
+        return townId;
+    }
+
+    public void setTownId(Long townId) {
+        this.townId = townId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Set<Master> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Master> users) {
+        this.users = users;
+    }
 }

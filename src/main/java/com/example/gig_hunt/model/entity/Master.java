@@ -2,18 +2,12 @@ package com.example.gig_hunt.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
-import lombok.AllArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorValue("M")
@@ -58,6 +52,18 @@ public class Master extends User {
     @Getter
     private static final double AMOUNT_FREE_FROM_FEE = 170.0;
 
+    public static Long getMasterRoleId() {
+        return MASTER_ROLE_ID;
+    }
+
+    public static void setMasterRoleId(Long masterRoleId) {
+        MASTER_ROLE_ID = masterRoleId;
+    }
+
+    public static double getAmountFreeFromFee() {
+        return AMOUNT_FREE_FROM_FEE;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,6 +101,62 @@ public class Master extends User {
                 isBusy() == masterTwo.isBusy() &&
                 (getActiveOrders() == masterTwo.getActiveOrders() || getActiveOrders() != 0 && getActiveOrders() == masterTwo.getActiveOrders()) &&
                 (getCompany() == masterTwo.getCompany() || getCompany() != null && getCompany().equals(masterTwo.getCompany()));
+    }
+
+    public Town getTown() {
+        return town;
+    }
+
+    public void setTown(Town town) {
+        this.town = town;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Integer getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(Integer maximum) {
+        this.maximum = maximum;
+    }
+
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void setBusy(boolean busy) {
+        isBusy = busy;
+    }
+
+    public int getActiveOrders() {
+        return activeOrders;
+    }
+
+    public void setActiveOrders(int activeOrders) {
+        this.activeOrders = activeOrders;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Set<Goods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Set<Goods> goods) {
+        this.goods = goods;
     }
 
 }

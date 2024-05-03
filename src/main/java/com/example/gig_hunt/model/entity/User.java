@@ -3,11 +3,7 @@ package com.example.gig_hunt.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +15,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -84,15 +78,18 @@ public class User implements UserDetails {
     @Column(name = "account_not_expired", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
     @ToString.Exclude
+
     private boolean accountNonExpired;
     @Column(name = "account_not_locked", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
     @ToString.Exclude
     private boolean accountNonLocked;
+
     @Column(name = "credentials_not_expired", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
     @ToString.Exclude
     private boolean credentialsNonExpired;
+
     @Column(name = "enabled", columnDefinition = "bit(1)", nullable = false, unique = false)
     @JsonIgnore
     @ToString.Exclude
@@ -116,26 +113,6 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return getNickname();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     @Override
@@ -172,6 +149,107 @@ public class User implements UserDetails {
                 isAccountNonLocked() == userTwo.isAccountNonLocked() &&
                 isCredentialsNonExpired() == userTwo.isCredentialsNonExpired() &&
                 isEnabled() == userTwo.isEnabled();
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public PersonalData getPersonalData() {
+        return personalData;
+    }
+
+    public void setPersonalData(PersonalData personalData) {
+        this.personalData = personalData;
+    }
+
+    public Set<OrderDetails> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderDetails> orders) {
+        this.orders = orders;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public List<Goods> getBasket() {
+        return basket;
+    }
+
+    public void setBasket(List<Goods> basket) {
+        this.basket = basket;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

@@ -16,17 +16,17 @@ public class UserAuthorization {
         this.userService = userService;
     }
 
-    public boolean check(Authentication authentication, Long userId) {
+    public boolean checkCustomer(Authentication authentication, Long userId) {
         String username = authentication.getName();
-        System.out.println(username);
+        System.out.println("USERNAME: " + username);
 
-        Customer customer = (Customer) userService.loadUserByUsername(username);
-        User u = userService.readById(userId);
+        User customer = (Customer) userService.loadUserByUsername(username);
+        User u = (Customer) userService.readById(userId);
 
         System.out.println(customer.getUserId());
-        System.out.println(u.getUserId());
 
-        if (userId.equals(customer.getUserId())) {
+        if (customer.getRole().getName().equals("ROLE_CUSTOMER") && customer.getNickname().equals(username) &&
+        customer.getUserId().equals(userId)) {
             return true;
         }
 
@@ -41,7 +41,7 @@ public class UserAuthorization {
         System.out.println(master.getUserId());
         System.out.println(userId);
         if(user.getRole().getName().equals("ROLE_MASTER") && master.getUserId().equals(userId)) {
-            return user.getRole().getName().equals("ROLE_MASTER") && master.getUserId().equals(userId);
+            return user.getRole().getName().equals("ROLE_MASTER") && master.getUserId() == userId;
         }
         return false;
     }

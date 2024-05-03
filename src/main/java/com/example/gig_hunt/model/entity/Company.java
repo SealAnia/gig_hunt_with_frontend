@@ -10,8 +10,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "company")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
@@ -61,4 +59,35 @@ public class Company {
                 && (getUser() == companyTwo.getUser() || (getUser() != null && getUser().equals(companyTwo.getUser())));
     }
 
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(Long registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public Master getUser() {
+        return user;
+    }
+
+    public void setUser(Master user) {
+        this.user = user;
+    }
 }
